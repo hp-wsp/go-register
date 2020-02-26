@@ -1,0 +1,50 @@
+spring:
+                  appliation:
+                    name: go-register-server
+                    description: ts safe server application
+                    author: TS Group
+                  http:
+                    encoding:
+                      charset: UTF-8
+                      enabled: true
+                      force: true
+                  servlet:
+                    multipart:
+                      enabled: false
+                  mvc:
+                    date-format: yyyy-MM-dd HH:mm:ss
+                    favicon:
+                      enabled: false
+                  jackson:
+                    date-format: yyyy-MM-dd HH:mm:ss
+                    default-property-inclusion: non_null
+                    deserialization:
+                      FAIL_ON_UNKNOWN_PROPERTIES: false
+                    time-zone: GMT+8
+                  datasource:
+                    type: com.zaxxer.hikari.HikariDataSource
+                    driver-class-name: com.mysql.jdbc.Driver
+                    username: dev
+                    password: appeme_com
+                    url: jdbc:mysql://cd-cdb-jll51z7q.sql.tencentcdb.com:63658/go_register_db?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+                    hikari:
+                      maximum-pool-size: 60
+                      idle-timeout: 3600000
+                      max-lifetime: 21600000
+                      data-source-properties:
+                        cache-prep-stmts: true
+                        useServerPrepStmts: true
+                        prep-stmt-cache-size: 250
+                        prep-stmt-cache-sql-limit: 2048
+                  flyway:
+                    locations: classpath:/db
+                    baseline-on-migrate: false
+                    clean-on-validation-error: false
+                    clean-disabled: false
+                    enabled: true
+
+                  server:
+                    port: 9090
+                    compression:
+                      enabled: true
+                      mime-types: text/html,application/json
