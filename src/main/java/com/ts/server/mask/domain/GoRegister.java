@@ -28,6 +28,10 @@ public class GoRegister {
     private String province;
     @ApiModelProperty("外出城市")
     private String city;
+    @ApiModelProperty("外出省")
+    private String county;
+    @ApiModelProperty("技能")
+    private String skill;
     @ApiModelProperty("本县地址")
     private String couAddress;
     @ApiModelProperty("是否在疫区")
@@ -105,6 +109,22 @@ public class GoRegister {
         this.city = city;
     }
 
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
     public String getCouAddress() {
         return couAddress;
     }
@@ -169,6 +189,8 @@ public class GoRegister {
                 Objects.equals(mobile, that.mobile) &&
                 Objects.equals(province, that.province) &&
                 Objects.equals(city, that.city) &&
+                Objects.equals(county, that.county) &&
+                Objects.equals(skill, that.skill) &&
                 Objects.equals(couAddress, that.couAddress) &&
                 Objects.equals(goDate, that.goDate) &&
                 Objects.equals(createTime, that.createTime);
@@ -176,7 +198,7 @@ public class GoRegister {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, area, name, idCard, sex, mobile, province, city, couAddress, inpArea, poverty, driver, goDate, createTime);
+        return Objects.hash(id, area, name, idCard, sex, mobile, province, city, county, skill, couAddress, inpArea, poverty, driver, goDate, createTime);
     }
 
     @Override
@@ -190,6 +212,8 @@ public class GoRegister {
                 .append("mobile", mobile)
                 .append("province", province)
                 .append("city", city)
+                .append("county", county)
+                .append("skill", skill)
                 .append("couAddress", couAddress)
                 .append("inpArea", inpArea)
                 .append("poverty", poverty)

@@ -31,6 +31,10 @@ public class GoRegisterForm {
     private String province;
     @ApiModelProperty(value = "外出城市")
     private String city;
+    @ApiModelProperty(value = "外出县")
+    private String county;
+    @ApiModelProperty(value = "技能")
+    private String skill;
     @ApiModelProperty(value = "本县地址")
     private String couAddress;
     @ApiModelProperty(value = "是否在疫区", required = true )
@@ -101,6 +105,22 @@ public class GoRegisterForm {
         this.city = city;
     }
 
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
     public String getCouAddress() {
         return couAddress;
     }
@@ -151,6 +171,8 @@ public class GoRegisterForm {
         t.setMobile(mobile);
         t.setProvince(province);
         t.setCity(city);
+        t.setCounty(county);
+        t.setSkill(skill);
         t.setCouAddress(couAddress);
         t.setInpArea(inpArea);
         t.setPoverty(poverty);

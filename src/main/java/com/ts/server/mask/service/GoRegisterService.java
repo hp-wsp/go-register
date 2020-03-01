@@ -3,12 +3,14 @@ package com.ts.server.mask.service;
 import com.ts.server.mask.dao.GoRegisterDao;
 import com.ts.server.mask.domain.GoRegister;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,11 +33,19 @@ public class GoRegisterService {
         return t;
     }
 
-    public Long count(String name, String goDate){
-        return dao.count(name, goDate);
+    public Optional<GoRegister> get(String idCard){
+        try{
+            return Optional.of(dao.findOne(idCard));
+        }catch (DataAccessException e){
+            return Optional.empty();
+        }
     }
 
-    public List<GoRegister> query(String name, String goDate, int offset, int limit){
-        return dao.find(name, goDate, offset, limit);
+    public Long count(String name, String area){
+        return dao.count(name, area);
+    }
+
+    public List<GoRegister> query(String name, String area, int offset, int limit){
+        return dao.find(name, area, offset, limit);
     }
 }

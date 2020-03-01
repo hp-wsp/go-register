@@ -1,12 +1,13 @@
 package com.ts.server.mask;
 
+import com.ts.server.mask.config.GoProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -15,8 +16,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author TS Group
  */
 @SpringBootApplication
-@EnableScheduling
 @EnableSwagger2
+@EnableConfigurationProperties({GoProperties.class})
 public class RegisterApplication {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegisterApplication.class);
 

@@ -3,17 +3,16 @@ package com.ts.server.mask.controller.manage;
 import com.ts.server.mask.BaseException;
 import com.ts.server.mask.common.excel.ExcelWriter;
 import com.ts.server.mask.controller.manage.excel.GoRegisterExcelWriter;
+import com.ts.server.mask.controller.vo.HasVo;
 import com.ts.server.mask.controller.vo.ResultPageVo;
+import com.ts.server.mask.controller.vo.ResultVo;
 import com.ts.server.mask.domain.GoRegister;
 import com.ts.server.mask.service.GoRegisterService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -41,25 +40,26 @@ public class RegisterManController {
     @ApiOperation("查询外出登记")
     public ResultPageVo<GoRegister> query(
             @ApiParam(value = "姓名") @RequestParam(required = false) String name,
-            @ApiParam(value = "初始时间") @RequestParam(required = false) String goDate,
+            @ApiParam(value = "乡镇") @RequestParam(required = false) String area,
             @RequestParam(defaultValue = "true")@ApiParam(value = "是否得到查询记录数") boolean isCount,
             @RequestParam(defaultValue = "0") @ApiParam(value = "查询页数") int page,
             @RequestParam(defaultValue = "15") @ApiParam(value = "查询每页记录数") int rows){
 
 
-        return new ResultPageVo.Builder<>(page, rows, service.query(name, goDate, page * rows, rows))
-                .count(isCount, () -> service.count(name, goDate))
+        return new ResultPageVo.Builder<>(page, rows, service.query(name, area, page * rows, rows))
+                .count(isCount, () -> service.count(name, area))
                 .build();
     }
 
     @GetMapping(value = "export")
     @ApiOperation("导出外出登记")
-    public void exportExcel(@ApiParam("外出日期") @RequestParam(required = false) String goDate, HttpServletResponse response){
+    public void exportExcel(@ApiParam(value = "乡镇") @RequestParam(required = false) String area, HttpServletResponse response){
+
         try(ExcelWriter<GoRegister> writer = new GoRegisterExcelWriter(response, false, "登记表");){
             final int row = 500;
             for(int i = 0; i < 200; i++){
                 int offset = row * i;
-                List<GoRegister> data = service.query("", goDate, offset, row);
+                List<GoRegister> data = service.query("", area, offset, row);
                 if(data.isEmpty()){
                     break;
                 }
