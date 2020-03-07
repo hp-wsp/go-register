@@ -16,6 +16,8 @@ public class GoRegister {
     private long id;
     @ApiModelProperty("乡镇")
     private String area;
+    @ApiModelProperty("村")
+    private String village;
     @ApiModelProperty("姓名")
     private String name;
     @ApiModelProperty("身份证号")
@@ -59,6 +61,14 @@ public class GoRegister {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
     }
 
     public String getName() {
@@ -183,6 +193,7 @@ public class GoRegister {
                 poverty == that.poverty &&
                 driver == that.driver &&
                 Objects.equals(area, that.area) &&
+                Objects.equals(village, that.village) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(idCard, that.idCard) &&
                 Objects.equals(sex, that.sex) &&
@@ -198,7 +209,7 @@ public class GoRegister {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, area, name, idCard, sex, mobile, province, city, county, skill, couAddress, inpArea, poverty, driver, goDate, createTime);
+        return Objects.hash(id, area, village, name, idCard, sex, mobile, province, city, county, skill, couAddress, inpArea, poverty, driver, goDate, createTime);
     }
 
     @Override
@@ -206,6 +217,7 @@ public class GoRegister {
         return new ToStringBuilder(this)
                 .append("id", id)
                 .append("area", area)
+                .append("village", village)
                 .append("name", name)
                 .append("idCard", idCard)
                 .append("sex", sex)

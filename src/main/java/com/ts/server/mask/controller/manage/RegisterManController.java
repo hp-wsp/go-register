@@ -41,25 +41,28 @@ public class RegisterManController {
     public ResultPageVo<GoRegister> query(
             @ApiParam(value = "姓名") @RequestParam(required = false) String name,
             @ApiParam(value = "乡镇") @RequestParam(required = false) String area,
+            @ApiParam(value = "村") @RequestParam(required = false) String village,
             @RequestParam(defaultValue = "true")@ApiParam(value = "是否得到查询记录数") boolean isCount,
             @RequestParam(defaultValue = "0") @ApiParam(value = "查询页数") int page,
             @RequestParam(defaultValue = "15") @ApiParam(value = "查询每页记录数") int rows){
 
 
-        return new ResultPageVo.Builder<>(page, rows, service.query(name, area, page * rows, rows))
-                .count(isCount, () -> service.count(name, area))
+        return new ResultPageVo.Builder<>(page, rows, service.query(name, area, village, page * rows, rows))
+                .count(isCount, () -> service.count(name, area, village))
                 .build();
     }
 
     @GetMapping(value = "export")
     @ApiOperation("导出外出登记")
-    public void exportExcel(@ApiParam(value = "乡镇") @RequestParam(required = false) String area, HttpServletResponse response){
+    public void exportExcel(@ApiParam(value = "乡镇") @RequestParam(required = false) String area,
+                            @ApiParam(value = "村") @RequestParam(required = false) String village,
+                            HttpServletResponse response){
 
         try(ExcelWriter<GoRegister> writer = new GoRegisterExcelWriter(response, false, "登记表");){
             final int row = 500;
             for(int i = 0; i < 200; i++){
                 int offset = row * i;
-                List<GoRegister> data = service.query("", area, offset, row);
+                List<GoRegister> data = service.query("", area, village, offset, row);
                 if(data.isEmpty()){
                     break;
                 }

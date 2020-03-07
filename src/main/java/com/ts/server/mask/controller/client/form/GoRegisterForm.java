@@ -2,6 +2,7 @@ package com.ts.server.mask.controller.client.form;
 
 import com.ts.server.mask.domain.GoRegister;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,8 @@ public class GoRegisterForm {
     @ApiModelProperty(value = "乡镇", required = true)
     @NotBlank
     private String area;
+    @ApiModelProperty(value = "村")
+    private String village;
     @ApiModelProperty(value = "姓名", required = true)
     @NotBlank
     private String name;
@@ -55,6 +58,14 @@ public class GoRegisterForm {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
     }
 
     public String getName() {
@@ -165,6 +176,7 @@ public class GoRegisterForm {
         GoRegister t = new GoRegister();
 
         t.setArea(area);
+        t.setVillage(StringUtils.defaultString(village, ""));
         t.setName(name);
         t.setIdCard(idCard);
         t.setSex(sex);

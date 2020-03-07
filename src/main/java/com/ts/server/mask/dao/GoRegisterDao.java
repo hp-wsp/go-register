@@ -24,6 +24,7 @@ public class GoRegisterDao {
 
         t.setId(r.getLong("id"));
         t.setArea(r.getString("area"));
+        t.setVillage(r.getString("village"));
         t.setName(r.getString("name"));
         t.setIdCard(r.getString("id_card"));
         t.setSex(r.getString("sex"));
@@ -48,19 +49,19 @@ public class GoRegisterDao {
     }
 
     public void insert(GoRegister t){
-        final String sql = "INSERT INTO t_register (area, name, id_card, sex, mobile, province, city, county, skill," +
+        final String sql = "INSERT INTO t_register (area, village, name, id_card, sex, mobile, province, city, county, skill," +
                 " cou_address, is_inp_area, is_poverty, is_driver, go_date, create_time) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 
-        jdbcTemplate.update(sql, t.getArea(), t.getName(), t.getIdCard(), t.getSex(), t.getMobile(), t.getProvince(),
+        jdbcTemplate.update(sql, t.getArea(), t.getVillage(), t.getName(), t.getIdCard(), t.getSex(), t.getMobile(), t.getProvince(),
                 t.getCity(), t.getCounty(), t.getSkill(), t.getCouAddress(), t.isInpArea(), t.isPoverty(),
                 t.isDriver(), t.getGoDate());
     }
 
     public boolean update(GoRegister t){
-        final String sql = "UPDATE t_register SET area = ?, name = ?, sex = ?, mobile = ?, province = ?, city= ?, county = ?, " +
+        final String sql = "UPDATE t_register SET area = ?, village = ?, name = ?, sex = ?, mobile = ?, province = ?, city= ?, county = ?, " +
                 "skill = ?, cou_address = ?, is_inp_area = ?, is_poverty = ?, is_driver = ?, go_date = ? WHERE id_card = ?";
-        return jdbcTemplate.update(sql, t.getArea(), t.getName(), t.getSex(), t.getMobile(), t.getProvince(), t.getCity(),
+        return jdbcTemplate.update(sql, t.getArea(), t.getVillage(), t.getName(), t.getSex(), t.getMobile(), t.getProvince(), t.getCity(),
                 t.getCounty(), t.getSkill(), t.getCouAddress(), t.isInpArea(), t.isPoverty(), t.isDriver(), t.getGoDate(),
                 t.getIdCard()) > 0;
     }
@@ -76,23 +77,25 @@ public class GoRegisterDao {
         return jdbcTemplate.queryForObject(sql, new Object[]{idCard}, mapper);
     }
 
-    public Long count(String name, String area){
-        final String sql = "SELECT COUNT(id) FROM t_register WHERE name LIKE ? AND area LIKE ?";
+    public Long count(String name, String area, String village){
+        final String sql = "SELECT COUNT(id) FROM t_register WHERE name LIKE ? AND area LIKE ? AND village LIKE ?";
 
         String nameLike = DaoUtils.like(name);
         String areaLike = DaoUtils.like(area);
+        String villageLike = DaoUtils.like(village);
 
-        return jdbcTemplate.queryForObject(sql, new Object[]{nameLike, areaLike}, Long.class);
+        return jdbcTemplate.queryForObject(sql, new Object[]{nameLike, areaLike, villageLike}, Long.class);
     }
 
-    public List<GoRegister> find(String name, String area, int offset, int limit){
-        final String sql = "SELECT * FROM t_register WHERE name LIKE ? AND area LIKE ? " +
+    public List<GoRegister> find(String name, String area, String village,  int offset, int limit){
+        final String sql = "SELECT * FROM t_register WHERE name LIKE ? AND area LIKE ? AND village LIKE ? " +
                 "ORDER BY create_time DESC LIMIT ? OFFSET ?";
 
         String nameLike = DaoUtils.like(name);
         String areaLike = DaoUtils.like(area);
+        String villageLike = DaoUtils.like(village);
 
-        return jdbcTemplate.query(sql, new Object[]{nameLike, areaLike, limit, offset}, mapper);
+        return jdbcTemplate.query(sql, new Object[]{nameLike, areaLike, villageLike, limit, offset}, mapper);
     }
 
 }

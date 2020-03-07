@@ -25,7 +25,7 @@ spring:
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.jdbc.Driver
       username: dev
-      password: 12345678
+      password: appeme_com
       url: jdbc:mysql://cd-cdb-jll51z7q.sql.tencentcdb.com:63658/go_register_db?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
       hikari:
         maximum-pool-size: 60

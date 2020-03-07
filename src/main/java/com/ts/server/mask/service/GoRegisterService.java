@@ -41,11 +41,11 @@ public class GoRegisterService {
         }
     }
 
-    public Long count(String name, String area){
-        return dao.count(name, area);
+    public Long count(String name, String area, String village) {
+        return dao.count(name, area, village);
     }
 
-    public List<GoRegister> query(String name, String area, int offset, int limit){
-        return dao.find(name, area, offset, limit);
+    public List<GoRegister> query(String name, String area, String village, int offset, int limit){
+        return dao.find(name, area, village, offset, limit);
     }
 }
