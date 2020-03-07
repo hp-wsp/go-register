@@ -22,8 +22,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class GoRegisterExcelWriter extends HttpExcelWriter<GoRegister> {
     private static final String[] HEADS = new String[]{"姓名", "性别", "身份证号", "手机号", "外出省份",
-            "外出城市", "外出县区", "有何技能", "本县地址", "是否在疫区", "是否贫困户", "是否有政府统一安排出务工乘车需求", "外出时间", "登记时间",
-            "乡镇", "村组"};
+            "外出城市", "外出县区", "有何技能", "本县地址", "是否在疫区", "是否贫困户", "是否有政府统一安排出务工乘车需求", "外出时间",
+            "乡镇", "村组", "登记时间"};
 
     public GoRegisterExcelWriter(HttpServletResponse response, boolean is2003, String filename) throws IOException {
         super(response, is2003, filename);
